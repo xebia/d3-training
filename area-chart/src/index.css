@@ -20,5 +20,10 @@ label {
 }
 
 path {
-  transition: 1s d;
+  transition: 1s all;
+}
+circle {
+  transition: 1s all;
+  fill: steelblue;
+  opacity: 0.5;
 }

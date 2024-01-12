@@ -1,6 +1,7 @@
 import { interval, now } from "d3-timer";
 import { AreaChart } from "./AreaChart";
 import { useEffect, useState } from "react";
+import { ScatterPlot } from "./ScatterPlot";
 
 const REFRESH_RATE = 2000;
 
@@ -13,6 +14,7 @@ function generateData(size: number, min: number, max: number) {
 
 export function Demo() {
   const [data, setData] = useState<number[]>([]);
+  const [scatterData, setScatterData] = useState<[number, number][]>([]);
   const [itemCount, setItemCount] = useState(25);
   const [min, setMin] = useState(10);
   const [max, setMax] = useState(100);
@@ -20,7 +22,13 @@ export function Demo() {
   useEffect(() => {
     const int = interval(
       () => {
+        // For area chart
         setData(generateData(itemCount, min, max));
+
+        // For scatter plot
+        const scatterX = generateData(itemCount, min, max);
+        const scatterY = generateData(itemCount, min, max);
+        setScatterData(scatterX.map((x, i) => [x, scatterY[i]]));
       },
       REFRESH_RATE,
       now() - REFRESH_RATE
@@ -32,6 +40,7 @@ export function Demo() {
     <div>
       <h1>Example Area Chart</h1>
       <AreaChart data={data} width={300} height={300} />
+      <ScatterPlot data={scatterData} width={300} height={300} />
       <div className="content">
         <div>
           <label htmlFor="itemCount">Record Count: </label>
