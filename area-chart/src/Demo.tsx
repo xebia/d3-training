@@ -31,7 +31,7 @@ export function Demo() {
   return (
     <div>
       <h1>Example Area Chart</h1>
-      <AreaChart chartData={data} width={300} height={300} />
+      <AreaChart data={data} width={300} height={300} />
       <div className="content">
         <div>
           <label htmlFor="itemCount">Record Count: </label>

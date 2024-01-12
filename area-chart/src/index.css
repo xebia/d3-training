@@ -18,3 +18,7 @@ label {
   stroke-width: 3px;
   fill: none;
 }
+
+path {
+  transition: 1s d;
+}
