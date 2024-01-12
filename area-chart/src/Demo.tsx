@@ -1,7 +1,9 @@
+import { interval, now } from "d3-timer";
 import { AreaChart } from "./AreaChart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const REFRESH_RATE = 2000;
+
 function generateData(size: number, min: number, max: number) {
   return Array.from(
     { length: size },
@@ -10,14 +12,26 @@ function generateData(size: number, min: number, max: number) {
 }
 
 export function Demo() {
+  const [data, setData] = useState<number[]>([]);
   const [itemCount, setItemCount] = useState(25);
   const [min, setMin] = useState(10);
   const [max, setMax] = useState(100);
 
+  useEffect(() => {
+    const int = interval(
+      () => {
+        setData(generateData(itemCount, min, max));
+      },
+      REFRESH_RATE,
+      now() - REFRESH_RATE
+    );
+    return () => int.stop();
+  }, [itemCount, min, max]);
+
   return (
     <div>
       <h1>Example Area Chart</h1>
-      <AreaChart />
+      <AreaChart chartData={data} width={300} height={300} />
       <div className="content">
         <div>
           <label htmlFor="itemCount">Record Count: </label>

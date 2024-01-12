@@ -9,3 +9,12 @@ label {
   display: inline-block;
   width: 150px;
 }
+
+.area {
+  fill: #9d92b2;
+}
+.line {
+  stroke: #6c1d5f;
+  stroke-width: 3px;
+  fill: none;
+}
